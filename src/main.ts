@@ -628,15 +628,11 @@ function makeByteUtils(options: Options) {
 
   function getBase64FromBytesSnippet() {
     const base64FromBytesNodeSnippet = code`
-      return ${globalThis}.Buffer.from(arr).toString('base64');
+      return ${globalThis}.Buffer.from(arr).toString('hex');
     `;
 
     const base64FromBytesBrowserSnippet = code`
-      const bin: string[] = [];
-      arr.forEach((byte) => {
-        bin.push(${globalThis}.String.fromCharCode(byte));
-      });
-      return ${globalThis}.btoa(bin.join(''));
+      return Array.from(arr, (byte) => byte.toString(16).padStart(2, '0')).join('');
     `;
 
     switch (options.env) {

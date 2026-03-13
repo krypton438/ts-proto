@@ -11,7 +11,7 @@
   "scripts": {
     "build": "yarn tsc",
     "build:test": "yarn proto2ts && yarn proto2pbjs",
-    "prepare": "yarn build",
+    "postinstall": "test -d build || tsc",
     "proto2ts": "docker compose run --rm protoc update-code.sh",
     "proto2pbjs": "docker compose run --rm protoc pbjs.sh",
     "test": "yarn jest -c jest.config.js",
@@ -22,7 +22,9 @@
     "watch": "tsx integration/watch.ts"
   },
   "files": [
-    "build"
+    "build",
+    "src",
+    "tsconfig.json"
   ],
   "keywords": [],
   "author": "",
@@ -66,14 +68,14 @@
     "temporal-spec": "^0.3.0",
     "ts-jest": "^29.3.4",
     "tsx": "^4.19.4",
-    "typescript": "^5.8.3",
     "uglify-js": "^3.17.4"
   },
   "dependencies": {
     "@bufbuild/protobuf": "^2.10.2",
     "case-anything": "^2.1.13",
     "ts-poet": "^6.12.0",
-    "ts-proto-descriptors": "2.1.0"
+    "ts-proto-descriptors": "2.1.0",
+    "typescript": "^5.8.3"
   },
   "packageManager": "yarn@4.4.0"
 }
